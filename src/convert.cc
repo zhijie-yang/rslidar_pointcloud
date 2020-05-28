@@ -51,7 +51,7 @@ void Convert::callback(rslidar_pointcloud::CloudNodeConfig& config, uint32_t lev
 /** @brief Callback for raw scan messages. */
 void Convert::processScan(const rslidar_msgs::rslidarScan::ConstPtr& scanMsg)
 {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr strongestPoints(new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::PointCloud<pcl::PointXYZINormal>::Ptr strongestPoints(new pcl::PointCloud<pcl::PointXYZINormal>);
   strongestPoints->header.stamp = pcl_conversions::toPCL(scanMsg->header).stamp;
   strongestPoints->header.frame_id = scanMsg->header.frame_id;
   strongestPoints->clear();
@@ -72,7 +72,7 @@ void Convert::processScan(const rslidar_msgs::rslidarScan::ConstPtr& scanMsg)
 
   // process each packet provided by the driver
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr lastPoints(new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::PointCloud<pcl::PointXYZINormal>::Ptr lastPoints(new pcl::PointCloud<pcl::PointXYZINormal>);
   lastPoints->header.stamp = pcl_conversions::toPCL(scanMsg->header).stamp;
   lastPoints->header.frame_id = scanMsg->header.frame_id;
   lastPoints->clear();
@@ -90,6 +90,7 @@ void Convert::processScan(const rslidar_msgs::rslidarScan::ConstPtr& scanMsg)
   sensor_msgs::PointCloud2 lastMsg;
   pcl::toROSMsg(*strongestPoints, strongestMsg);
   pcl::toROSMsg(*lastPoints, lastMsg);
+
 
   strongest_.publish(strongestMsg);
   last_.publish(lastMsg);

@@ -129,10 +129,10 @@ public:
   void loadConfigFile(ros::NodeHandle node, ros::NodeHandle private_nh);
 
   /*unpack the RS16 UDP packet and opuput PCL PointXYZI type*/
-  void unpack(const rslidar_msgs::rslidarPacket& pkt, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud2);
+  void unpack(const rslidar_msgs::rslidarPacket& pkt, pcl::PointCloud<pcl::PointXYZINormal>::Ptr pointcloud, pcl::PointCloud<pcl::PointXYZINormal>::Ptr pointcloud2);
 
   /*unpack the RS32 UDP packet and opuput PCL PointXYZI type*/
-  void unpack_RS32(const rslidar_msgs::rslidarPacket& pkt, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud2);
+  void unpack_RS32(const rslidar_msgs::rslidarPacket& pkt, pcl::PointCloud<pcl::PointXYZINormal>::Ptr pointcloud, pcl::PointCloud<pcl::PointXYZINormal>::Ptr pointcloud2);
 
   /*compute temperature*/
   float computeTemperature(unsigned char bit1, unsigned char bit2);
